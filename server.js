@@ -1,16 +1,22 @@
 import express from "express";
-import dotenv from "dotenv";
-
-dotenv.config();
-
 const app = express();
+
+import dotenv from "dotenv";
+dotenv.config();
 const PORT = process.env.PORT || 3200;
 
-app.get("/", (req, res) => {
+import contactRoutes from "./routes/contactRoutes.js";
 
-  res.send("Hello World!");
+app.set("view engine", "ejs");
+app.use(express.static("public"));
 
-});
+// // ! v0
+// app.get("/api/contacts", (req, res) => {
+//   res.status(200).json({ message: "Get all contacts!" });
+// });
+
+// // ! v1
+app.use("/api/contacts", contactRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT} ✅`);
