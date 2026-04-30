@@ -39,7 +39,7 @@
         <tr>
           <td><%= person.name %></td>
           <% if (person.number?.includes(".")) { %>
-          <td><a href="<%= person.number %>"><%= person.number %></a></td>
+          <td><a href="<%= person.number %>" target="_blank"><%= person.number %></a></td>
           <% } else { %>
           <td><%= person.number %></td>
           <% } %>
