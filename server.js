@@ -25,7 +25,8 @@ app.use(express.static("public"));
 // });
 
 // // ! v1
-app.use("/api/contacts", contactRoutes);
+// app.use("/api/contacts", contactRoutes);
+app.use("/", contactRoutes);
 
 app.use(notFound);
 app.use(globalErrorHandler);

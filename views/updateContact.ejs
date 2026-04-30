@@ -36,7 +36,7 @@
         </svg>
         <%= buttonText %>
       </button>
-      <a href="/api/contacts/" class="btn">
+      <a href="/" class="btn">
         <!-- list icon -->
         <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="8" y1="6" x2="21" y2="6" />
@@ -86,7 +86,7 @@
             Updating…
           `;
 
-        const response = await fetch(`/api/contacts/<%= person._id %>`, {
+        const response = await fetch(`/<%= person._id %>`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -104,7 +104,7 @@
 
         await new Promise((resolve) => setTimeout(resolve, 700));
 
-        window.location.href = "/api/contacts/";
+        window.location.href = "/";
       } catch (err) {
         console.error(err);
         alert(err.message);
@@ -156,7 +156,7 @@
             Adding…
           `;
 
-        const response = await fetch(`/api/contacts/`, {
+        const response = await fetch(`/`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -174,7 +174,7 @@
 
         await new Promise((resolve) => setTimeout(resolve, 700));
 
-        window.location.href = "/api/contacts/";
+        window.location.href = "/";
       } catch (err) {
         console.error(err);
         alert(err.message);
