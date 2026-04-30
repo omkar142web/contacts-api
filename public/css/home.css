@@ -125,10 +125,6 @@ tbody tr {
   transition: background-color 0.15s ease;
 }
 
-tbody tr:hover {
-  background-color: var(--row-hover);
-}
-
 /* ── Name column ── */
 td:first-child {
   font-weight: 600;
@@ -183,14 +179,6 @@ button {
   border-color: #c3ead3;
 }
 
-.edit:hover {
-  background-color: var(--success-color);
-  color: #fff;
-  border-color: var(--success-color);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(26, 138, 85, 0.22);
-}
-
 /* ── Delete button ── */
 .delete {
   background-color: var(--danger-bg);
@@ -198,12 +186,26 @@ button {
   border-color: #f0c8c3;
 }
 
-.delete:hover {
-  background-color: var(--danger-color);
-  color: #fff;
-  border-color: var(--danger-color);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(192, 57, 43, 0.22);
+@media (hover: hover) {
+  tbody tr:hover {
+    background-color: var(--row-hover);
+  }
+
+  .delete:hover {
+    background-color: var(--danger-color);
+    color: #fff;
+    border-color: var(--danger-color);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(192, 57, 43, 0.22);
+  }
+
+  .edit:hover {
+    background-color: var(--success-color);
+    color: #fff;
+    border-color: var(--success-color);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(26, 138, 85, 0.22);
+  }
 }
 
 button:active {
