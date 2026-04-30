@@ -23,7 +23,7 @@ const getContact = async (req, res) => {
   // res.status(200).json({ message: "Get all contacts!" });
 
   const collection = getCollection("contacts");
-  const data = await collection.find().toArray();
+  const data = await collection.find().sort({ _id: -1 }).toArray();
   console.log(data);
 
   res.render("allContacts", { data: data });
