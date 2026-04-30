@@ -38,8 +38,8 @@
         <% data.forEach((person) => { %>
         <tr>
           <td><%= person.name %></td>
-          <% if (person.number?.includes(".")) { %>
-          <td><a href="<%= person.number %>" target="_blank"><%= person.number %></a></td>
+          <% if (person.number?.includes(".") && !person.number.includes(" ")) { %>
+          <td><a href="<%= person.number.startsWith('http') ? person.number : 'https://' + person.number %>" target="_blank"><%= person.number %></a></td>
           <% } else { %>
           <td><%= person.number %></td>
           <% } %>
