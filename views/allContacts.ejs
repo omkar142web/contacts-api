@@ -28,8 +28,8 @@
       <thead>
         <tr>
           <th>Name</th>
+          <th>Links / Phone</th>
           <th>Email</th>
-          <th>Number / Links</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -38,12 +38,12 @@
         <% data.forEach((person) => { %>
         <tr>
           <td><%= person.name %></td>
-          <td><%= person.email %></td>
           <% if (person.number?.includes(".")) { %>
           <td><a href="<%= person.number %>"><%= person.number %></a></td>
           <% } else { %>
           <td><%= person.number %></td>
           <% } %>
+          <td><%= person.email %></td>
           <td>
             <button class="edit" onclick="window.location.href='update/<%= person._id %>'">
               <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
