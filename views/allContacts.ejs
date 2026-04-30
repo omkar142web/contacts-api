@@ -7,23 +7,29 @@
   <title>All Contacts</title>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/css/home.css" />
+  <style>
+    a {
+      color: blue;
+      text-decoration: underline;
+    }
+  </style>
 </head>
 
 <body>
   <h1>All Contacts</h1>
-<div class="addContact">
-      <button class="add-icon" onclick="window.location.href='add'">
-        Add Contact
-      </button>
-    </div>
+  <div class="addContact">
+    <button class="add-icon" onclick="window.location.href='add'">
+      Add Contact
+    </button>
+  </div>
   <div class="container">
-    
+
     <table>
       <thead>
         <tr>
           <th>Name</th>
           <th>Email</th>
-          <th>Number</th>
+          <th>Number / Links</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -33,7 +39,11 @@
         <tr>
           <td><%= person.name %></td>
           <td><%= person.email %></td>
+          <% if (person.number?.includes(".")) { %>
+          <td><a href="<%= person.number %>"><%= person.number %></a></td>
+          <% } else { %>
           <td><%= person.number %></td>
+          <% } %>
           <td>
             <button class="edit" onclick="window.location.href='update/<%= person._id %>'">
               <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
