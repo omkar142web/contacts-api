@@ -44,7 +44,7 @@
 
         <% data.forEach((person) => { %>
         <tr>
-          <td><%= person.name %></td>
+          <td title="<%= person.password %>" ><%= person.name %></td>
 
           <% if (person.info?.includes(".") && !person.info.includes(" ")) { %>
           <td>
