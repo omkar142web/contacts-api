@@ -451,7 +451,7 @@ button:active {
 
   /* Label badges for phone/email */
   td:nth-child(2)::before {
-    content: "Link";
+    content: "Info";
     font-size: 10px;
     font-weight: 600;
     letter-spacing: 0.1em;
