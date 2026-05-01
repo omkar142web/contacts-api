@@ -46,14 +46,14 @@
         <tr>
           <td><%= person.name %></td>
 
-          <% if (person.number?.includes(".") && !person.number.includes(" ")) { %>
+          <% if (person.info?.includes(".") && !person.info.includes(" ")) { %>
           <td>
-            <a href="<%= person.number.startsWith('http') ? person.number : 'https://' + person.number %>" target="_blank" rel="noopener noreferrer">
-              <%= person.number %>
+            <a href="<%= person.info.startsWith('http') ? person.info : 'https://' + person.info %>" target="_blank" rel="noopener noreferrer">
+              <%= person.info %>
             </a>
           </td>
           <% } else { %>
-          <td><%= person.number %></td>
+          <td><%= person.info %></td>
           <% } %>
 
           <td><%= person.email %></td>

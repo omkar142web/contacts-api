@@ -5,39 +5,38 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title><%= title %></title>
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/css/update.css" />
 </head>
 
 <body>
+
   <h1><%= title %></h1>
 
   <form>
     <div>
       <label for="name">Full Name</label>
-      <input type="text" id="name" name="name" placeholder="e.g. Rahul Sharma" value="<%= person?.name || '' %>" required />
+      <input type="text" id="name" name="name" placeholder="e.g. Rahul Sharma" value="<%= person?.name || '' %>" required autocomplete="on" />
     </div>
 
     <div>
       <label for="email">Email Address</label>
-      <input type="email" id="email" name="email" placeholder="rahul@example.com" value="<%= person?.email || '' %>" required />
+      <input type="email" id="email" name="email" placeholder="rahul@example.com" value="<%= person?.email || '' %>" required autocomplete="on" />
     </div>
 
     <div>
-      <label for="phone">Links / Any Data</label>
-      <input type="tel" id="phone" name="phone" placeholder="e.g. website link, notes, codes, any info u want.." value="<%= person?.number || '' %>" required />
+      <label for="info">Links / Any Data</label>
+      <input type="tel" id="info" name="info" placeholder="e.g. website link, notes, codes, any info u want.." value="<%= person?.info || '' %>" required autocomplete="on" />
     </div>
 
     <div>
       <button type="submit">
-        <!-- checkmark icon -->
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M20 6 9 17l-5-5" />
         </svg>
         <%= buttonText %>
       </button>
       <a href="/" class="btn">
-        <!-- list icon -->
         <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="8" y1="6" x2="21" y2="6" />
           <line x1="8" y1="12" x2="21" y2="12" />
@@ -46,25 +45,31 @@
           <line x1="3" y1="12" x2="3.01" y2="12" />
           <line x1="3" y1="18" x2="3.01" y2="18" />
         </svg>
-        All Info
+        All Contacts
       </a>
     </div>
   </form>
 
-  <% if (title != 'Add Info') {%>
+  <% if (title != 'Add Info') { %>
   <script>
     let form = document.querySelector("form");
     let inputs = form.querySelectorAll("input");
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
-
-      const btn = form.querySelector("button[type='submit']");
+      const btn = form.querySelector("button");
 
       for (let input of inputs) {
         if (!input.value?.trim()) {
-          alert("Please fill all fields");
           input.focus();
+          input.style.borderColor = "#ff75a0";
+          input.style.boxShadow = "0 0 0 3px rgba(255,117,160,0.18)";
+          input.addEventListener("input", () => {
+            input.style.borderColor = "";
+            input.style.boxShadow = "";
+          }, {
+            once: true
+          });
           return;
         }
       }
@@ -72,69 +77,78 @@
       try {
         btn.disabled = true;
         btn.innerHTML = `
-            <span style="
-              display: inline-flex;
-              animation: spin 0.7s linear infinite;
-              transform-origin: center;
-            ">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                fill="none" stroke="currentColor" stroke-width="2.5"
-                stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 12a9 9 0 1 1-6.22-8.56"/>
-              </svg>
-            </span>
-            Updating…
-          `;
+          <span style="display:inline-flex;animation:spin 0.7s linear infinite;transform-origin:center;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12a9 9 0 1 1-6.22-8.56"/>
+            </svg>
+          </span>
+          Updating…
+        `;
+
+        // ! add condition of same data / 
 
         const response = await fetch(`/<%= person._id %>`, {
           method: "PUT",
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "application/json"
           },
           body: JSON.stringify({
             name: form.name.value.trim(),
             email: form.email.value.trim(),
-            number: form.phone.value.trim(),
+            info: form.info.value.trim(),
           }),
         });
 
-        if (!response.ok) {
-          throw new Error(data.message || "Update failed");
-        }
+        if (!response.ok) throw new Error("Update failed");
 
-        await new Promise((resolve) => setTimeout(resolve, 700));
+        btn.innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 6 9 17l-5-5"/>
+          </svg>
+          Updated!
+        `;
 
+        await new Promise(r => setTimeout(r, 600));
         window.location.href = "/";
+
       } catch (err) {
         console.error(err);
-        alert(err.message);
-      } finally {
         btn.disabled = false;
         btn.innerHTML = `
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-              fill="none" stroke="currentColor" stroke-width="2.5"
-              stroke-linecap="round" stroke-linejoin="round">
-              <path d="M20 6 9 17l-5-5"/>
-            </svg>
-            Contact Updated!
-          `;
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 6 9 17l-5-5"/>
+          </svg>
+          <%= buttonText %>
+        `;
       }
     });
   </script>
-  <% } else {%>
+  <% } else { %>
   <script>
     form = document.querySelector("form");
     inputs = form.querySelectorAll("input");
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
-
       const btn = form.querySelector("button[type='submit']");
 
       for (let input of inputs) {
         if (!input.value?.trim()) {
-          alert("Please fill all fields");
           input.focus();
+          input.style.borderColor = "#ff75a0";
+          input.style.boxShadow = "0 0 0 3px rgba(255,117,160,0.18)";
+          input.addEventListener("input", () => {
+            input.style.borderColor = "";
+            input.style.boxShadow = "";
+          }, {
+            once: true
+          });
           return;
         }
       }
@@ -142,56 +156,58 @@
       try {
         btn.disabled = true;
         btn.innerHTML = `
-            <span style="
-              display: inline-flex;
-              animation: spin 0.7s linear infinite;
-              transform-origin: center;
-            ">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                fill="none" stroke="currentColor" stroke-width="2.5"
-                stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 12a9 9 0 1 1-6.22-8.56"/>
-              </svg>
-            </span>
-            Adding…
-          `;
+          <span style="display:inline-flex;animation:spin 0.7s linear infinite;transform-origin:center;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12a9 9 0 1 1-6.22-8.56"/>
+            </svg>
+          </span>
+          Adding…
+        `;
 
         const response = await fetch(`/`, {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "application/json"
           },
           body: JSON.stringify({
             name: form.name.value.trim(),
             email: form.email.value.trim(),
-            number: form.phone.value.trim(),
+            info: form.info.value.trim(),
           }),
         });
 
-        if (!response.ok) {
-          throw new Error(data.message || "Failed to add contact");
-        }
+        if (!response.ok) throw new Error("Failed to add contact");
 
-        await new Promise((resolve) => setTimeout(resolve, 700));
+        btn.innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 6 9 17l-5-5"/>
+          </svg>
+          Added!
+        `;
 
+        await new Promise(r => setTimeout(r, 700));
         window.location.href = "/";
+
       } catch (err) {
         console.error(err);
-        alert(err.message);
-      } finally {
         btn.disabled = false;
         btn.innerHTML = `
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-              fill="none" stroke="currentColor" stroke-width="2.5"
-              stroke-linecap="round" stroke-linejoin="round">
-              <path d="M20 6 9 17l-5-5"/>
-            </svg>
-            Contact Added!
-          `;
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 6 9 17l-5-5"/>
+          </svg>
+          <%= buttonText %>
+        `;
       }
     });
   </script>
   <% } %>
+
 </body>
 
 </html>
