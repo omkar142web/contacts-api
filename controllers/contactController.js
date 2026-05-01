@@ -3,7 +3,7 @@ import { ObjectId } from "mongodb";
 
 export const getAllDevelopers = async (req, res, next) => {
   try {
-    const collection = getCollection("contacts");
+    const collection = getCollection("anyInformation");
     const data = await collection.find().toArray();
 
     // res.json(data);
@@ -16,17 +16,17 @@ export const getAllDevelopers = async (req, res, next) => {
 
 // ! No need of this 🔺 btw.. see..🔻 🔻
 
-// @desc Get all Contacts
+// @desc Get all anyInformation
 // @route GET /api/contact
 // @access public
 const getContact = async (req, res) => {
-  // res.status(200).json({ message: "Get all contacts!" });
+  // res.status(200).json({ message: "Get all anyInformation!" });
 
-  const collection = getCollection("contacts");
+  const collection = getCollection("anyInformation");
   const data = await collection.find().sort({ _id: -1 }).toArray();
   console.log(data);
 
-  res.render("allContacts", { data: data });
+  res.render("allInfo", { data: data });
 };
 
 // @desc Create a new Contact
@@ -34,7 +34,7 @@ const getContact = async (req, res) => {
 // @access public
 // ! (201)
 const createContact = async (req, res) => {
-  const collection = getCollection("contacts");
+  const collection = getCollection("anyInformation");
   const addedData = await collection.insertOne(req.body);
 
   res.status(201).json({ addedData });
@@ -48,7 +48,7 @@ const createContact = async (req, res) => {
 const updateContact = async (req, res) => {
   const id = req.params.id;
 
-  const collection = getCollection("contacts");
+  const collection = getCollection("anyInformation");
 
   const updatedData = await collection.updateOne(
     { _id: new ObjectId(id) },
@@ -66,7 +66,7 @@ const updateContact = async (req, res) => {
 const deleteContact = async (req, res) => {
   const id = req.params.id;
 
-  const collection = getCollection("contacts");
+  const collection = getCollection("anyInformation");
 
   const deleteData = await collection.deleteOne({ _id: new ObjectId(id) });
 
@@ -97,12 +97,13 @@ const updateContactPage = async (req, res) => {
   // res.send('updating..')
 
   const id = req.params.id;
-  const collection = getCollection("contacts");
+  const collection = getCollection("anyInformation");
   const data = await collection.findOne({ _id: new ObjectId(id) });
-  res.render("updateContact", {
+  console.log(data);
+  res.render("updateInformation", {
     person: data,
-    title: "Update Contact",
-    buttonText: "Update Contact",
+    title: "Update Info",
+    buttonText: "Update Info",
   });
 };
 
@@ -113,11 +114,11 @@ const addContactPage = async (req, res) => {
   // res.send('updating..')
 
   const id = req.params.id;
-  const collection = getCollection("contacts");
+  const collection = getCollection("anyInformation");
   const data = await collection.findOne({ _id: new ObjectId(id) });
-  res.render("updateContact", {
+  res.render("updateInformation", {
     person: data,
-    title: "Add Contact",
-    buttonText: "Add Contact",
+    title: "Add Info",
+    buttonText: "Add Info",
   });
 };

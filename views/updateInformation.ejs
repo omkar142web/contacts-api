@@ -15,17 +15,17 @@
   <form>
     <div>
       <label for="name">Full Name</label>
-      <input type="text" id="name" name="name" placeholder="e.g. Rahul Sharma" <%= person?.name ? `value=${person.name}` : "" %> required />
+      <input type="text" id="name" name="name" placeholder="e.g. Rahul Sharma" value="<%= person?.name || '' %>" required />
     </div>
 
     <div>
       <label for="email">Email Address</label>
-      <input type="email" id="email" name="email" placeholder="rahul@example.com" <%= person?.email ? `value=${person.email}` : "" %> required />
+      <input type="email" id="email" name="email" placeholder="rahul@example.com" value="<%= person?.email || '' %>" required />
     </div>
 
     <div>
-      <label for="phone">Phone Number</label>
-      <input type="tel" id="phone" name="phone" placeholder="91000 00000" <%= person?.number ? `value=${person.number}` : "" %> required />
+      <label for="phone">Links / Any Data</label>
+      <input type="tel" id="phone" name="phone" placeholder="e.g. website link, notes, codes, any info u want.." value="<%= person?.number || '' %>" required />
     </div>
 
     <div>
@@ -46,12 +46,12 @@
           <line x1="3" y1="12" x2="3.01" y2="12" />
           <line x1="3" y1="18" x2="3.01" y2="18" />
         </svg>
-        All Contacts
+        All Info
       </a>
     </div>
   </form>
 
-  <% if (title != 'Add Contact') {%>
+  <% if (title != 'Add Info') {%>
   <script>
     let form = document.querySelector("form");
     let inputs = form.querySelectorAll("input");
