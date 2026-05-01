@@ -208,7 +208,7 @@ td {
   font-size: 14px;
   font-weight: 400;
   color: var(--text);
-  padding: 16px 24px;
+  padding: 16px 0px 16px 24px;
   border-bottom: 1px solid var(--border);
   text-align: left;
   vertical-align: middle;
@@ -228,6 +228,15 @@ tbody tr {
   }
 }
 
+@media (min-width: 682px) {
+  td:first-child {
+    min-width: 160px;
+  }
+  td:nth-child(2) {
+    max-width: 240px;
+  }
+}
+
 /* ── Name column ── */
 td:first-child {
   font-weight: 600;
@@ -238,11 +247,17 @@ td:first-child {
 
 /* ── Links / phone column ── */
 td:nth-child(2) {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
   color: var(--muted);
   font-size: 13.5px;
 }
 
 td:nth-child(2) a {
+  /* white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden; */
   color: var(--accent);
   text-decoration: none;
   transition:
@@ -257,8 +272,12 @@ td:nth-child(2) a:hover {
 
 /* ── Email column ── */
 td:nth-child(3) {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
   color: var(--muted);
   font-size: 13.5px;
+  max-width: 240px;
 }
 
 /* ── Actions cell ── */
@@ -466,4 +485,52 @@ button:active {
     justify-content: center;
     padding: 9px 12px;
   }
+}
+
+/* ── Custom Scrollbar (Dark Glass Theme) ── */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.92);
+  border-left: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    rgba(56, 189, 248, 0.75),
+    rgba(14, 165, 233, 0.55)
+  );
+  border-radius: 999px;
+  border: 2px solid rgba(15, 23, 42, 0.92);
+  box-shadow:
+    0 0 10px rgba(56, 189, 248, 0.18),
+    inset 0 0 6px rgba(255, 255, 255, 0.08);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    rgba(125, 211, 252, 0.9),
+    rgba(56, 189, 248, 0.7)
+  );
+  box-shadow:
+    0 0 14px rgba(56, 189, 248, 0.28),
+    inset 0 0 8px rgba(255, 255, 255, 0.12);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: linear-gradient(
+    180deg,
+    rgba(14, 165, 233, 0.95),
+    rgba(2, 132, 199, 0.8)
+  );
+}
+
+/* Firefox */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(56, 189, 248, 0.75) rgba(15, 23, 42, 0.92);
 }
