@@ -214,10 +214,6 @@ td {
   vertical-align: middle;
 }
 
-tbody tr:last-child td {
-  border-bottom: none;
-}
-
 tbody tr {
   transition: background-color 0.15s ease;
 }
@@ -234,6 +230,9 @@ tbody tr {
   }
   td:nth-child(2) {
     max-width: 240px;
+  }
+  tbody tr:last-child td {
+    border-bottom: none;
   }
 }
 
