@@ -102,6 +102,7 @@
         });
 
         if (!response.ok) throw new Error("Update failed");
+        await new Promise(r => setTimeout(r, 700));
 
         btn.innerHTML = `
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -112,7 +113,6 @@
           Updated!
         `;
 
-        await new Promise(r => setTimeout(r, 600));
         window.location.href = "/";
 
       } catch (err) {
@@ -179,6 +179,7 @@
         });
 
         if (!response.ok) throw new Error("Failed to add contact");
+        await new Promise(r => setTimeout(r, 700));
 
         btn.innerHTML = `
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -189,7 +190,7 @@
           Added!
         `;
 
-        await new Promise(r => setTimeout(r, 700));
+
         window.location.href = "/";
 
       } catch (err) {
