@@ -5,25 +5,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>All Contacts</title>
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/css/home.css" />
-  <style>
-    a {
-      color: blue;
-      text-decoration: underline;
-    }
-  </style>
 </head>
 
 <body>
-  <h1>All Contacts</h1>
-  <div class="addContact">
+
+  <div class="topbar">
+    <h1>
+      <span class="dot"></span>
+      All Contacts
+    </h1>
     <button class="add-icon" onclick="window.location.href='add'">
       Add Contact
     </button>
   </div>
-  <div class="container">
 
+  <div class="container">
     <table>
       <thead>
         <tr>
@@ -35,15 +33,31 @@
       </thead>
 
       <tbody class="contactTable">
+        <% if (data.length === 0) { %>
+        <tr class="empty-row">
+          <td colspan="4">
+            <span>📭</span>
+            No contacts yet.
+          </td>
+        </tr>
+        <% } %>
+
         <% data.forEach((person) => { %>
         <tr>
           <td><%= person.name %></td>
+
           <% if (person.number?.includes(".") && !person.number.includes(" ")) { %>
-          <td><a href="<%= person.number.startsWith('http') ? person.number : 'https://' + person.number %>" ><%= person.number %></a></td>
+          <td>
+            <a href="<%= person.number.startsWith('http') ? person.number : 'https://' + person.number %>" target="_blank" rel="noopener noreferrer">
+              <%= person.number %>
+            </a>
+          </td>
           <% } else { %>
           <td><%= person.number %></td>
           <% } %>
+
           <td><%= person.email %></td>
+
           <td>
             <button class="edit" onclick="window.location.href='update/<%= person._id %>'">
               <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -73,21 +87,26 @@
     // ! delete function..
     async function DeleteFun(id, btn) {
       try {
-        const response = await fetch(
-          `${id}`, {
-            method: 'delete',
-          })
+        const response = await fetch(`${id}`, {
+          method: 'delete'
+        });
 
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
-        btn.closest('tr').remove()
+
+        const row = btn.closest('tr');
+        row.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
+        row.style.opacity = '0';
+        row.style.transform = 'translateX(12px)';
+        setTimeout(() => row.remove(), 260);
 
       } catch (err) {
-        console.error(err)
+        console.error(err);
       }
     }
   </script>
+
 </body>
 
 </html>
