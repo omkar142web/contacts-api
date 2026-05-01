@@ -19,7 +19,7 @@ export const getAllDevelopers = async (req, res, next) => {
 // @desc Get all anyInformation
 // @route GET /api/contact
 // @access public
-const getContact = async (req, res) => {
+const getInfo = async (req, res) => {
   // res.status(200).json({ message: "Get all anyInformation!" });
 
   const collection = getCollection("anyInformation");
@@ -33,7 +33,7 @@ const getContact = async (req, res) => {
 // @route POST /api/contact
 // @access public
 // ! (201)
-const createContact = async (req, res) => {
+const createInfo = async (req, res) => {
   const collection = getCollection("anyInformation");
   const addedData = await collection.insertOne(req.body);
 
@@ -45,7 +45,7 @@ const createContact = async (req, res) => {
 // @desc Update a Contact
 // @route PUT /api/contact/:id
 // @access public
-const updateContact = async (req, res) => {
+const updateInfo = async (req, res) => {
   const id = req.params.id;
 
   const collection = getCollection("anyInformation");
@@ -63,7 +63,7 @@ const updateContact = async (req, res) => {
 //! @desc Delete a Contact
 // @route DELETE /api/contact/:id
 // @access public
-const deleteContact = async (req, res) => {
+const deleteInfo = async (req, res) => {
   const id = req.params.id;
 
   const collection = getCollection("anyInformation");
@@ -76,24 +76,24 @@ const deleteContact = async (req, res) => {
 // @desc Get a Contact
 // @route GET /api/contact/:id
 // @access public
-const getOneContact = (req, res) => {
+const getOneInfo = (req, res) => {
   res.status(200).json({ message: `Get contact for -${req.params.id}` });
 };
 
 export {
-  getContact,
-  createContact,
-  updateContact,
-  deleteContact,
-  getOneContact,
-  updateContactPage,
-  addContactPage,
+  getInfo,
+  createInfo,
+  updateInfo,
+  deleteInfo,
+  getOneInfo,
+  updateInfoPage,
+  addInfoPage,
 };
 
 // @desc Get a Contact update page
 // @route GET /api/contact/:id
 // @access public
-const updateContactPage = async (req, res) => {
+const updateInfoPage = async (req, res) => {
   // res.send('updating..')
 
   const id = req.params.id;
@@ -110,7 +110,7 @@ const updateContactPage = async (req, res) => {
 // @desc Get a Contact ADD page
 // @route GET /api/contact/:id
 // @access public
-const addContactPage = async (req, res) => {
+const addInfoPage = async (req, res) => {
   // res.send('updating..')
 
   const id = req.params.id;

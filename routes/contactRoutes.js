@@ -25,13 +25,13 @@ const router = express.Router();
 
 // ! v1 🔻 🔻 🔻
 import {
-  getContact,
-  createContact,
-  updateContact,
-  deleteContact,
-  getOneContact,
-  updateContactPage,
-  addContactPage,
+  getInfo,
+  createInfo,
+  updateInfo,
+  deleteInfo,
+  getOneInfo,
+  updateInfoPage,
+  addInfoPage,
 } from "../controllers/contactController.js";
 
 // ! v1.0 🔻 🔻 🔻
@@ -47,18 +47,14 @@ import {
 // 🔺 🔺 🔺 🔺
 
 // ! v1.1 🔻 🔻 🔻
-router.route("/update/:id").get(updateContactPage);
-router.route("/add").get(addContactPage);
+router.route("/update/:id").get(updateInfoPage);
+router.route("/add").get(addInfoPage);
 
 // base route
-router.route("/").get(getContact).post(createContact);
+router.route("/").get(getInfo).post(createInfo);
 
 // route with ID
-router
-  .route("/:id")
-  .get(getOneContact)
-  .put(updateContact)
-  .delete(deleteContact);
+router.route("/:id").get(getOneInfo).put(updateInfo).delete(deleteInfo);
 
 // 🔺 🔺 🔺 🔺
 
