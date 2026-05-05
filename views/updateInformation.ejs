@@ -45,7 +45,7 @@
           <line x1="3" y1="12" x2="3.01" y2="12" />
           <line x1="3" y1="18" x2="3.01" y2="18" />
         </svg>
-        All Contacts
+        See All
       </a>
     </div>
   </form>
@@ -120,7 +120,7 @@
         });
 
         if (!response.ok) throw new Error("Update failed");
-        await new Promise(r => setTimeout(r, 700));
+        await new Promise(r => setTimeout(r, 600));
 
         btn.innerHTML = `
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -197,7 +197,7 @@
         });
 
         if (!response.ok) throw new Error("Failed to add contact");
-        await new Promise(r => setTimeout(r, 700));
+        await new Promise(r => setTimeout(r, 600));
 
         btn.innerHTML = `
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
